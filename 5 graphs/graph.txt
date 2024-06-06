@@ -1,0 +1,20 @@
+terminologies
+
+ vertex
+ edges
+ path = sequence of vertices connected by edges
+ cycle: path whose first and last vertices are the same
+
+ degree of a vetex: number of connections to or from a vertex
+
+depth - first search:
+aggressively moves away from the starting node
+only go back when there is a dead end
+useses stackt remeber where it should go when it reaches a dead end
+
+
+
+breadth -first search
+
+
+

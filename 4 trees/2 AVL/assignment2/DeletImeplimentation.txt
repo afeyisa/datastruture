@@ -1,0 +1,71 @@
+name:Feyisa kenenisa
+id no: UGR/6442/13
+
+before implimenting deleteFromAVL i made little change on exsiting code 
+change was setting bFactor of newly inserted node to zero while inserting it.
+
+nodePtr->bFactor=0;
+
+implimentation
+
+**************************************************************************
+
+//added by Feyisa kenenisa
+//may, 26, 2024
+//ugr /6442/13
+
+void BalancedSearchTree::deleteFromAVL(TreeNode *& nodePtr, int num, bool & isShorter)
+{
+//TreeNode *&nodePtr, TreeNode *newNode, bool &isTaller
+// deleteFromAVL(root, num, isShorter);
+
+     if(nodePtr==NULL)
+	{
+	   cout<<"No node to delete"<<endl;
+	}
+	else if(nodePtr->value==num)
+    { // do something
+	    makeDeletion(nodePtr);
+        isShorter=true;
+    }
+
+    else if(nodePtr->value > num) //newItem goes to the left subtree
+	{
+	    deleteFromAVL(nodePtr->left,num, isShorter);
+		if(isShorter)//If the subtree grew in height after insertion
+		    switch(nodePtr->bFactor)
+			{
+			    case -1:
+				    balanceFromLeft(nodePtr);
+					isShorter=false;
+					break;
+			    case 0:
+				    nodePtr->bFactor=-1;
+					isShorter=true;
+					break;
+				case 1:
+				    nodePtr->bFactor=0;
+					isShorter=false;				
+			}//end of switch
+	}//end if
+	else //newItem goes to the right subtree
+	{
+	    deleteFromAVL(nodePtr->right, num, isShorter);
+        if(isShorter)//If the subtree grew in height after insertion
+		    switch(nodePtr->bFactor)
+			{
+			    case -1:
+				    nodePtr->bFactor=0;
+					isShorter=false;
+					break;
+			    case 0:
+				    nodePtr->bFactor=1;
+					isShorter=true;
+					break;
+			   case 1:
+				    balanceFromRight(nodePtr);
+					isShorter=false;				
+			}//end of switch		    
+	}//end else     
+}
+****************************************************************************
